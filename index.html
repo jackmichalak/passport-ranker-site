@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Passport Ranker — rank passports by any formula</title>
+  <meta name="description" content="Write a formula over Wikipedia visa data and CIA World Factbook stats, and rank every passport by it." />
+  <link rel="stylesheet" href="./styles-VPF7TZRJ.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛂</text></svg>" />
+</head>
+<body>
+  <!-- Compact bar shown only on narrow screens: the sidebar becomes a drawer there. -->
+  <header class="mobile-bar">
+    <span class="brand-mini">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M15.6 8.4l-2.05 5.15-5.15 2.05 2.05-5.15z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+      Passport Ranker
+    </span>
+    <button id="fields-toggle" class="fields-btn" type="button" aria-expanded="false" aria-controls="sidebar">Fields</button>
+  </header>
+  <div id="backdrop" class="backdrop"></div>
+
+  <div class="app">
+    <!-- On mobile this becomes a fixed, clipping layer so the off-canvas drawer
+         can't widen the page; on desktop it's `display: contents` (no box at all)
+         and .sidebar stays a direct grid child of .app. -->
+    <div class="drawer-layer">
+      <aside class="sidebar" id="sidebar">
+        <div class="drawer-head">
+          <strong>Fields &amp; functions</strong>
+          <button id="fields-close" class="drawer-close" type="button" aria-label="Close field reference">✕</button>
+        </div>
+        <div class="brand">
+          <span class="brand-mark">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.5"/><path d="M15.6 8.4l-2.05 5.15-5.15 2.05 2.05-5.15z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+          </span>
+          <h1>Passport<span class="brand-sub">Ranker</span></h1>
+        </div>
+        <p class="tagline">Rank every passport in the world by a formula <em>you</em> write. Tap any field below to drop it into your formula.</p>
+        <div id="reference"></div>
+      </aside>
+    </div>
+
+    <main class="main">
+      <header class="hero">
+        <span class="hero-kicker">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9.25" stroke="currentColor" stroke-width="1.6"/><path d="M15.6 8.4l-2.05 5.15-5.15 2.05 2.05-5.15z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          Global mobility navigator
+        </span>
+        <h2 class="hero-title">See the world your <span class="grad-word">passport opens</span></h2>
+        <p class="hero-sub">Every passport unlocks a different slice of the planet. Write a formula and watch all 199 sort by the freedom they give you.</p>
+      </header>
+
+      <div class="formula-bar">
+        <div class="formula-head">
+          <label class="formula-label" for="examples">Rank passports by</label>
+          <select id="examples" class="examples-select" aria-label="Load an example formula">
+            <option value="" selected>Choose an example…</option>
+          </select>
+          <button id="formula-toggle" class="formula-toggle" type="button" aria-expanded="false" aria-controls="formula-edit">
+            <span class="ft-caret" aria-hidden="true">▸</span> Edit formula
+          </button>
+        </div>
+        <div id="formula-edit" class="formula-edit" hidden>
+          <label class="formula-label formula-sublabel" for="formula">Formula</label>
+          <textarea id="formula" class="formula-input" rows="1" spellcheck="false"
+            autocomplete="off" autocapitalize="off" placeholder="e.g. sum(visa_free_days)"></textarea>
+          <div id="autocomplete" class="autocomplete hidden"></div>
+        </div>
+      </div>
+
+      <div class="status-row" id="status"></div>
+
+      <div class="toolbar">
+        <input id="search" class="search" type="search" placeholder="Search territory…" />
+        <button id="share" class="share-btn" type="button" title="Copy a link to this ranking">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9.5 14.5l5-5M11 7l1.2-1.2a3.8 3.8 0 015.4 5.4L16.4 12M13 17l-1.2 1.2a3.8 3.8 0 01-5.4-5.4L7.6 12" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+          <span id="share-label">Copy link</span>
+        </button>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="rank">Rank</th>
+              <th>Passport territory</th>
+              <th class="num" id="value-head">Score</th>
+              <th class="num col-extra" title="Visa-free destinations">Visa-free</th>
+              <th class="num col-extra">Population</th>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+        </table>
+      </div>
+      <p class="na-note" id="na-note"></p>
+
+      <footer class="app-footer">
+        <p><strong>Informational use only — not legal or travel advice.</strong>
+          Visa rules change often; this is an approximate snapshot from open sources.
+          Verify entry requirements with official government sources before travelling.</p>
+        <p>Data: visa requirements from the
+          <a href="https://github.com/ilyankou/passport-index-dataset" target="_blank" rel="noopener">passport-index dataset</a> (Wikipedia, MIT);
+          <a href="https://github.com/factbook/factbook.json" target="_blank" rel="noopener">CIA World Factbook</a> (public domain);
+          geography from <a href="https://github.com/mledoze/countries" target="_blank" rel="noopener">mledoze/countries</a> (ODbL);
+          HDI (<a href="https://hdr.undp.org" target="_blank" rel="noopener">UNDP</a>),
+          price level (<a href="https://data.worldbank.org" target="_blank" rel="noopener">World Bank</a>, CC BY),
+          and well-being/climate indicators via <a href="https://ourworldindata.org" target="_blank" rel="noopener">Our World in Data</a> (CC BY).
+          Code under MIT; dataset under <a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL</a> — see
+          <a href="https://github.com/jackmichalak/passport-ranker/blob/main/NOTICE" target="_blank" rel="noopener">NOTICE</a>.</p>
+        <p>Not affiliated with, endorsed by, or sponsored by any passport index; index names referenced are trademarks of their respective owners.</p>
+      </footer>
+    </main>
+  </div>
+
+  <script type="module" src="./app-CZ4INRYK.js"></script>
+</body>
+</html>
