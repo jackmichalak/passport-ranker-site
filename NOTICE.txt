@@ -1,0 +1,104 @@
+Passport Ranker — attribution, data licensing, and disclaimers
+================================================================
+
+This project has two licensing layers:
+
+  • Source code  — MIT License (see LICENSE).
+  • Dataset      — the compiled file web/data/passports.json is a database
+                   licensed under the Open Database License (ODbL) v1.0
+                   (https://opendatacommons.org/licenses/odbl/1-0/), because it
+                   incorporates substantial data from mledoze/countries, which
+                   is ODbL. Per ODbL, the *database* is share-alike; the
+                   *individual contents* retain their upstream licenses (listed
+                   below). Rankings produced and displayed by the app are an
+                   ODbL "Produced Work" and are not themselves ODbL-encumbered.
+
+If you redistribute the dataset, keep it under ODbL and preserve the attribution
+below. If you redistribute the code, keep the MIT notice.
+
+
+Data sources & their licenses
+-----------------------------
+
+1. Visa requirements — ilyankou/passport-index-dataset
+   https://github.com/ilyankou/passport-index-dataset
+   License: MIT. Compiled from Wikipedia "Visa requirements for X citizens"
+   pages. Required MIT notice reproduced below.
+
+2. Country statistics — CIA World Factbook, via factbook/factbook.json
+   https://github.com/factbook/factbook.json
+   License: Public Domain (U.S. Government work; the mirror dedicates its data
+   and scripts to the public domain). No restrictions.
+
+3. Geography (latitude/longitude, official languages, land borders) —
+   mledoze/countries
+   https://github.com/mledoze/countries
+   License: Open Database License (ODbL) v1.0. Attribution + share-alike.
+   This is the source that makes the compiled dataset ODbL.
+
+4. Human Development Index — UNDP Human Development Report
+   https://hdr.undp.org
+   Free to use with attribution to the UNDP Human Development Report Office.
+
+5. Price level index (ICP / PA.NUS.GDP.PLI) — The World Bank
+   https://data.worldbank.org/indicator/PA.NUS.GDP.PLI
+   License: CC BY 4.0. Attribution required.
+
+6. Happiness, average temperature, homicide rate, PM2.5, internet use, tourist
+   arrivals, precipitation — Our World in Data (OWID)
+   https://ourworldindata.org
+   OWID's own compiled/processed data is CC BY 4.0 (attribution required).
+   Some underlying series carry their producers' terms and attributions, in
+   particular:
+     • Happiness — World Happiness Report, based on Gallup World Poll data.
+     • Tourist arrivals — UN World Tourism Organization (UNWTO) / World Bank.
+     • Homicide rate — UN Office on Drugs and Crime (UNODC).
+     • Air quality (PM2.5) — WHO / van Donkelaar et al.
+     • Temperature & precipitation — Copernicus / World Bank climate data.
+   Only published national aggregates (facts) are used, with attribution.
+
+
+Trademark / non-affiliation
+---------------------------
+This project is not affiliated with, endorsed by, or sponsored by Henley &
+Partners, Arton Capital, or any passport index. "Henley Passport Index" and
+"Passport Index" are trademarks of their respective owners. Their names appear
+only in source comments and internal tooling to accurately describe which
+public methodology a metric reproduces (nominative fair use); no ranking data
+of theirs is redistributed beyond a small factual sample used for verification.
+
+
+Disclaimer
+----------
+Informational use only. Visa policies change frequently, and this dataset is an
+approximate snapshot compiled from open, community-maintained sources. It is NOT
+legal or travel advice. Verify entry requirements with official government
+sources before making any travel or immigration decision. The data is provided
+"as is", without warranty of any kind.
+
+
+--------------------------------------------------------------------------------
+Required upstream notice — ilyankou/passport-index-dataset (MIT):
+
+  MIT License
+
+  Copyright (c) 2019 Ilya Ilyankou
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
+--------------------------------------------------------------------------------
